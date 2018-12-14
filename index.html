@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+	<meta charset="UTF-8">
+	<title>Top 100 Artists - Alexandra Cortez</title>
+	<link href="https://fonts.googleapis.com/css?family=Archivo+Black" rel="stylesheet">
+  	<link href="https://fonts.googleapis.com/css?family=Tenor+Sans" rel="stylesheet">
+  	<link rel="stylesheet" href="css/style.css">
+
+  	<link rel="icon" type="image/x-icon" href="img/favicon.ico">
+</head>
+<body>
+	<div class="content">
+		<br/>
+		<h1>Top 100 Artists of All Time</h1>
+		<h2>Alexandra Cortez</h2>
+		<p>... At least, according to my Last.fm.</p>
+		<p>Checkout out who I've been listening to lately by scrolling over each bubble! </p>
+
+		<section id="graph"></section>
+
+		<br />
+		<p>For each artist, my listens make up for...</p>
+		<div id="chart"></div>
+
+		<div class="left">
+			<h3>Project Overview</h3>
+			<h4>Goals</h4>
+			<ol>
+				<li>Create a fully-working, visually pleasing program without any scaffolding</li>
+				<li>Create and modify tables in a SQLite Database</li>
+				<li>Utilize APIs (including researching possible methods)</li>
+				<li>Utilize Visualization software (including researching options)</li>
+				<li>Follow proper coding conventions (documenting functions)</li>
+			</ol>
+			<h4>Process</h4>
+			<h5>Get Data</h5>
+				<p>Using the Last.fm API, I gathered my top 100 artists of all time, how many times I played them, and how many times they were played in total by any user.</p>
+				<p>I then inserted this data into a SQLite database.</p>
+
+				<div class="center"><img src="img/lastapi.png" width="80%"></div>
+
+			<h5>Process Data</h5>
+				<p>Retrieving the data from the database, I wrote a small python program to calculate my percentage of listens out of all time listens for each artist.</p>
+				<p>This program then exports the data in two ways: one is a readable "report" tsv file, the other is a .js file containing the cleaned data and calculations for visualizations.</p>
+
+				<div class="center"><img src="img/mydata.png" width="30%"></div>
+
+			<h5>Plot Data</h5>
+				<p>Using D3js, I created two types of visualization with my data stored in the .js file: </p>
+					<ol>
+						<li>The Bubble Chart</li>
+						<li>The Pie Charts</li>
+					</ol>
+
+				<div class="center"><img src="img/d3.png" width="80%"></div>
+
+			<h5>Report</h5>
+			<ol>
+				<li>Goals Achieved
+					<p>I achieved my goal of creating a fully-working program from scratch. This program used a SQLite Database as well as the Last.fm API and D3js visualization software.</p>
+				</li>
+				<li>Problems Faced
+					<p>The biggest problems I faced in this project were caused by D3js and the fact that this is my first time using it. There's definitely a high learning curve to this library.</p>
+				</li>
+				<li>Instructions for Running my Code
+					<ol>
+						<li>Run lastfm.py to request listening data from Last.fm. The resulting data is stored in lastfm.sqlite</li>
+						<li>Run data.py to grab the data from the lastfm.sqlite and output artist_data.tsv and js/artist_data.js.</li>
+						<li>Opening index.html (or visiting this site soon to be published) on your local machine displays the data visualizations and report.</li>
+					</ol>
+					<div class="center"><img src="img/project_format.jpg" width="80%"></div>
+				</li><br/>
+
+				<li>Resources
+					<table>
+						<tr>
+							<th>Date</th>
+							<th>Issue Description</th>
+							<th>Location of Resource</th>
+							<th>Result</th>
+						</tr>
+						<tr>
+							<td>Dec 9, 2018</td>
+							<td>Artists yunggoth✰ and アナログフィッシュ crashed my data gathering because of the characters in their names.</td>
+							<td><a href="https://stackoverflow.com/questions/24397418/python-requests-issues-with-non-ascii-file-names" target="_blank">Stack overflow</a></td>
+							<td>I used the function I found on Stack overflow but modified it to simply remove the characters that the API requests didn't like. This worked for yunggoth✰ but the best solution I could find for the Japanese artist was to hardcode searching for it in it's English name.</td>
+						</tr>
+						<tr>
+							<td>Dec 10, 2018</td>
+							<td>Artist Jack Harlow crashed my data gathering for no plausible reason. I still can't quite figure out the exact reason why this happened.</td>
+							<td><a href="https://stackoverflow.com/questions/31417841/why-uppercase-isnt-usual-in-url" target="_blank">Stack overflow</a></td>
+							<td>I added a .lower() to all my artist names before adding them to my request URLs. This fixed the problem.</td>
+						</tr>
+						<tr>
+							<td>Dec 11, 2018</td>
+							<td>Initially, I had tried to load my data from the tsv file in javascript using the d3.tsv() function. I couldn't get the bubble graph to recognize this data as children data.</td>
+							<td><a href="https://stackoverflow.com/questions/15764698/loading-d3-js-data-from-a-simple-json-string" target="_blank">Stack overflow</a></td>
+							<td>I ditched the tsv file and instead modified data.py to also output a js file that contained the Last.fm data in an object stored as a global variable. I then linked the js file so I could access it in index.js for building my visualizations.</td>
+						</tr>
+						<tr>
+							<td>Dec 11, 2018</td>
+							<td>Understanding all the special functions in D3.</td>
+							<td><a href="https://d3indepth.com/" target="_blank">D3 in Depth</a></td>
+							<td>These documents were a huge help in getting me started with things like selections, data joins, and layouts. They helped me get started with laying out my visualizations.</td>
+						</tr>
+						<tr>
+							<td>Dec 12, 2018</td>
+							<td>How to format data to make a pie chart in D3.</td>
+							<td><a href="https://bl.ocks.org/jiankuang/a591ff3331044f8c9a59764a1424bb07" target="_blank">D3 Layout Pie Chart block</a></td>
+							<td>Gave a great example of how to use a small array to make a single pie chart. I used this as a model to create all of my pie charts using the member variables of the nodes I had previously loaded for the bubble chart.</td>
+						</tr>
+						<tr>
+							<td>Dec 12, 2018</td>
+							<td>Adding text to my visualizations that were fully visible but not too messy.</td>
+							<td><a href="http://bl.ocks.org/d3noob/a22c42db65eb00d4e369" target="_blank">Simple d3.js tooltips block</a></td>
+							<td>I used this block's tooltips as a model for my own tooltips on both the bubble and pie chart visualizations. Specifically the syntax for transitioning on mousover and mouseout events was very helpful.</td>
+						</tr>
+					</table>
+				</li>
+			</ol>
+			
+		</div>
+
+	
+		<script src='http://cdnjs.cloudflare.com/ajax/libs/d3/3.4.11/d3.min.js'></script>
+		<script src="js/artist_data.js"></script>
+		<script  src="js/index.js"></script>
+		<br />
+	</div><!-- content -->
+</body>
+</html>
